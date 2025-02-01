@@ -1,0 +1,708 @@
+/* :root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --background-color: #ecf0f1;
+  --text-color: #2c3e50;
+  --gradient-start: #4834d4;
+  --gradient-end: #686de0;
+}
+
+body {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.game,
+.game-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.mode-selection {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.mode-selection button {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-selection button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.mode-selection button:hover::before {
+  left: 100%;
+}
+
+.mode-selection button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  background: white;
+}
+
+.game-board {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  animation: boardAppear 0.5s ease-out;
+}
+
+@keyframes boardAppear {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  width: 90px;
+  height: 90px;
+  border: 3px solid var(--primary-color);
+  background: white;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 4px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.square:hover {
+  background-color: #f7f9fc;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.square.winning {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  color: white;
+  animation: winPulse 1s ease-in-out infinite;
+}
+
+@keyframes winPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.game-info {
+  margin-bottom: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  margin-top: 2rem;
+}
+
+.status {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.reset-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, var(--accent-color), #c0392b);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reset-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+.reset-button:active {
+  transform: translateY(-1px);
+}
+
+/* X and O animations */
+/*
+.square[value="X"] {
+  animation: markAppear 0.3s ease-out;
+}
+
+.square[value="O"] {
+  animation: markAppear 0.3s ease-out;
+}
+
+@keyframes markAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .square {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+
+  .mode-selection {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .game-board {
+    padding: 1rem;
+  }
+
+  .status {
+    font-size: 1.4rem;
+  }
+}
+
+/* Add a subtle pulse animation to the current player's indicator */
+/*
+.status::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: statusPulse 1s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+} */
+
+:root {
+  --primary-color: #34495e;
+  --secondary-color: #7795b5;
+  --accent-color: #8e44ad;
+  --background-color: #f5f6fa;
+  --text-color: #2d3436;
+  --gradient-start: #a8c0ff;
+  --gradient-end: #3f2b96;
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-background: rgba(255, 255, 255, 0.15);
+  --winning-gradient-1: #667eea;
+  --winning-gradient-2: #764ba2;
+}
+
+body {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.game,
+.game-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.game::before,
+.game-start::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+h1 {
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: titleFloat 3s ease-in-out infinite;
+  background: var(--glass-background);
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+
+.mode-selection,
+.difficulty-selection {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--glass-background);
+  border-radius: 25px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+
+.mode-selection button,
+.difficulty-selection button {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.3rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(4px);
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-selection button::before,
+.difficulty-selection button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: 0.4s;
+}
+
+.mode-selection button:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 15px 30px rgba(31, 38, 135, 0.3);
+}
+.difficulty-selection button:hover {
+  transform: translateY(4px);
+}
+.difficulty-selection .easy-btn:hover,
+.difficulty-selection .easy-btn:focus {
+  background: #5ea35e;
+}
+.difficulty-selection .med-btn:hover,
+.difficulty-selection .med-btn:focus {
+  background: #9c9c4b;
+}
+.difficulty-selection .hard-btn:hover,
+.difficulty-selection .hard-btn:focus {
+  background: #984141;
+}
+.mode-selection button:hover::before,
+.difficulty-selection button:hover::before {
+  left: 100%;
+}
+span {
+  color: rgba(0, 0, 0, 0.73);
+}
+.game-board {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(10px);
+  animation: boardAppear 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.game-board:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.25);
+}
+
+/* Add back the board-row class */
+.board-row {
+  display: flex;
+  gap: 4px;
+}
+
+.square {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 4px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  backdrop-filter: blur(5px);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.square:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(31, 38, 135, 0.2);
+}
+
+.square.winning {
+  background: rgb(39, 118, 39);
+  border-color: rgba(255, 255, 255, 0.4);
+  animation: winPulse 1s ease-in-out infinite;
+}
+p{
+  color: black;
+}
+.game-info {
+  margin: 2rem 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.game-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(31, 38, 135, 0.2);
+}
+
+.status {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: white;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reset-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: rgba(143, 47, 30, 0.848);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reset-button:hover {
+  transform: translateY(-3px);
+  /* background: rgba(142, 68, 173, 0.4); */
+  box-shadow: 0 8px 20px rgba(173, 70, 68, 0.737);
+}
+
+/* Enhanced X and O animations */
+.square[value="X"],
+.square[value="O"] {
+  animation: markAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes markAppear {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-90deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* Status indicator enhancement */
+.status::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: rgba(3, 213, 94, 0.8);
+  border-radius: 50%;
+  margin-left: 12px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  animation: statusPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.3;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .square {
+    width: 80px;
+    height: 80px;
+    font-size: 2.2rem;
+    margin: 3px;
+  }
+
+  .mode-selection,
+  .difficulty-selection {
+    flex-direction: column;
+    padding: 1rem;
+    width: 90%;
+    max-width: 300px;
+    margin: 1rem auto;
+  }
+
+  .mode-selection button,
+  .difficulty-selection button {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    padding: 0.8rem 1.2rem;
+    margin: 1rem 0;
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .game-board {
+    padding: 0.8rem;
+    margin: 1rem auto;
+    width: fit-content;
+  }
+
+  .game-info {
+    width: 90%;
+    max-width: 300px;
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+
+  .status {
+    font-size: 1.2rem;
+  }
+
+  .reset-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Add touch-friendly animations and interactions */
+@media (hover: none) {
+  .square:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .mode-selection button:active,
+  .difficulty-selection button:active {
+    transform: translateY(2px);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .reset-button:active {
+    transform: translateY(2px);
+    background: rgba(142, 68, 173, 0.6);
+  }
+}
+
+/* Enhanced touch feedback */
+.square,
+.mode-selection button,
+.difficulty-selection button,
+.reset-button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Add active state animations for buttons */
+.mode-selection button:active,
+.difficulty-selection button:active {
+  animation: buttonPress 0.2s ease-in-out;
+}
+
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Improve difficulty buttons on mobile */
+.difficulty-selection button {
+  position: relative;
+  overflow: hidden;
+}
+
+.difficulty-selection button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: inherit;
+  transition: transform 0.3s;
+}
+
+.difficulty-selection button:active::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Add focus styles for accessibility */
+.square:focus,
+.mode-selection button:focus,
+.difficulty-selection button:focus,
+.reset-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
