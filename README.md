@@ -1,6 +1,7 @@
 # Tic-Tac-Toe
 - Made with React.
 - Created with Vite.
+- designed with CSS.
 
 This Game is the modern version of the old tic-tac-toe game with more smoother animations.
 
