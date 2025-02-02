@@ -313,7 +313,14 @@ body {
   min-height: 100vh;
   margin: 0;
 }
-
+a {
+  color: black;
+  text-align: center;
+  align-items: center;
+}
+a:hover {
+  color: #292828;
+}
 .game,
 .game-start {
   display: flex;
@@ -479,7 +486,7 @@ span {
   border-color: rgba(255, 255, 255, 0.4);
   animation: winPulse 1s ease-in-out infinite;
 }
-p{
+p {
   color: black;
 }
 .game-info {
@@ -705,4 +712,114 @@ p{
 .reset-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.info-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .info-link {
+    font-size: 1rem;
+    padding: 8px;
+    margin-top: 15px;
+  }
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  color: white;
+}
+
+.difficulty-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.difficulty-section h2 {
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.difficulty-section ul {
+  list-style-type: none;
+  padding-left: 1rem;
+}
+
+.difficulty-section li {
+  margin: 0.5rem 0;
+  position: relative;
+}
+
+.difficulty-section li:before {
+  content: "•";
+  color: var(--accent-color);
+  font-weight: bold;
+  position: absolute;
+  left: -1rem;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .difficulty-section {
+    padding: 1rem;
+  }
+
+  .back-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
 }

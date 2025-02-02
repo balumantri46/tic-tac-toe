@@ -295,7 +295,7 @@ function App() {
           setCurrentMove(nextHistory.length)
           setXIsNext(true)
         }
-      }, 500)
+      }, 520)
     }
   }
   // Easy: Random moves
@@ -328,7 +328,7 @@ function App() {
     }
 
     // 50% chance to make optimal move
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.3) {
       const bestMove = getBestMove(squares)
       if (bestMove !== null) return bestMove
     }
@@ -430,13 +430,15 @@ function App() {
   }
 
   if (gameMode === 'computer' && !difficulty) {
-    return (
+    return (<>
         <div className="difficulty-selection">
           <h2>Choose Difficulty</h2>
           <button onClick={() => setDifficulty('easy')} className="easy-btn">Easy</button>
           <button onClick={() => setDifficulty('medium')} className="med-btn">Medium</button>
           <button onClick={() => setDifficulty('hard')} className="hard-btn">Hard (UnPredictable🤙)</button>
         </div>
+        {/*<a href="./info.html" className="info-link">Know About the computer moves</a>*/}
+      </>
     )
   }
 

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computer Moves Info</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #a8c0ff, #3f2b96);
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      h1 {
+        text-align: center;
+        color: white;
+        margin-bottom: 30px;
+      }
+
+      .difficulty-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      h2 {
+        color: #fff;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 10px;
+      }
+
+      .back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .back-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 15px;
+          margin: 10px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Computer Move Strategies</h1>
+
+      <div class="difficulty-section">
+        <h2>Easy Mode</h2>
+        <p>
+          In easy mode, the computer makes completely random moves. It will
+          choose any available empty square without any strategy, making it
+          perfect for beginners or casual play.
+        </p>
+      </div>
+
+      <div class="difficulty-section">
+        <h2>Medium Mode</h2>
+        <p>Medium mode combines strategy with randomness. The computer will:</p>
+        <ul>
+          <li>Try to win if it has a winning move</li>
+          <li>Block your winning moves</li>
+          <li>Sometimes make optimal moves (30% chance)</li>
+          <li>Otherwise make random moves</li>
+        </ul>
+      </div>
+
+      <div class="difficulty-section">
+        <h2>Hard Mode</h2>
+        <p>
+          Hard mode uses the Minimax algorithm, making it unbeatable. The
+          computer will:
+        </p>
+        <ul>
+          <li>Always choose the optimal move</li>
+          <li>Never make mistakes</li>
+          <li>Either win or force a draw</li>
+        </ul>
+      </div>
+
+      <a href="/" class="back-button">Back to Game</a>
+    </div>
+  </body>
+</html>
